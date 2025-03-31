@@ -90,6 +90,7 @@ struct ContentView: View {
                     .alert(randomMovie, isPresented: $isShowingAlert) {
                         Button("OK", role: .cancel){}
                     }
+                    .accessibilityLabel("Random Movie")
                     
                     
                     Spacer()
@@ -102,6 +103,7 @@ struct ContentView: View {
                 } label: {
                     ButtonImageView(symbolName: "plus.circle.fill")
                 }
+                .accessibilityLabel("New Movie")
             }
             .padding(.horizontal)
         } // Safe Area
