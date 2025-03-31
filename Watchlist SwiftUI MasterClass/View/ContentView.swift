@@ -18,25 +18,39 @@ struct ContentView: View {
     
     var body: some View {
         List {
-            ForEach(movies) { movie in
-                HStack{
-                    Text(movie.title)
-                    
-                    Spacer()
-                    
-                    Text(movie.genre.name)
-                } // List Row
-                .swipeActions {
-                    Button(role: .destructive) {
-                        withAnimation {
-                            modelContext.delete(movie)
+            if !movies.isEmpty {
+                Section( header: VStack {
+                    Text("Watchlist")
+                        .font(.largeTitle.weight(.black))
+                        .foregroundStyle(.blue.gradient)
+                        .padding()
+                    HStack {
+                        Label("Title", systemImage: "movieclapper")
+                        Spacer()
+                        Label("Genre", systemImage: "tag")
+                    }
+                }) {
+                    ForEach(movies) { movie in
+                        HStack{
+                            Text(movie.title)
+                            
+                            Spacer()
+                            
+                            Text(movie.genre.name)
+                        } // List Row
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                withAnimation {
+                                    modelContext.delete(movie)
+                                }
+                                
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
                         }
-                        
-                    } label: {
-                        Label("Delete", systemImage: "trash")
                     }
                 }
-            }
+            } // Condition
         } // List
         .overlay {
             if movies.isEmpty {
