@@ -15,6 +15,13 @@ struct ContentView: View {
     @Query private var movies: [Movie]
     
     @State private var isSheetPresented: Bool = false
+    @State private var randomMovie: String = ""
+    @State private var isShowingAlert: Bool = false
+    
+    // MARK: - Functions
+    private func randomMovieGenerator() {
+        randomMovie = movies.randomElement()!.title
+    }
     
     var body: some View {
         List {
@@ -69,14 +76,34 @@ struct ContentView: View {
         } // Overlay
         // MARK: - Safe Area
         .safeAreaInset(edge: .bottom, alignment: .center) {
-            Button {
-                withAnimation {
-                    isSheetPresented.toggle()
+            HStack {
+                if movies.count >= 2 {
+                    Button {
+                        withAnimation {
+                            randomMovieGenerator()
+                            isShowingAlert = true
+                        }
+                        
+                    } label: {
+                        ButtonImageView(symbolName: "arrow.trianglehead.2.clockwise.rotate.90.circle.fill")
+                    }
+                    .alert(randomMovie, isPresented: $isShowingAlert) {
+                        Button("OK", role: .cancel){}
+                    }
+                    
+                    
+                    Spacer()
                 }
-                
-            } label: {
-                ButtonImageView(symbolName: "plus.circle.fill")
+                Button {
+                    withAnimation {
+                        isSheetPresented.toggle()
+                    }
+                    
+                } label: {
+                    ButtonImageView(symbolName: "plus.circle.fill")
+                }
             }
+            .padding(.horizontal)
         } // Safe Area
         // MARK: - Sheet
         .sheet(isPresented: $isSheetPresented) {
