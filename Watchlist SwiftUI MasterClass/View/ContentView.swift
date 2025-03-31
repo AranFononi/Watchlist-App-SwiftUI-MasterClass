@@ -14,6 +14,8 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var movies: [Movie]
     
+    @State private var isSheetPresented: Bool = false
+    
     var body: some View {
         List {
             
@@ -23,6 +25,21 @@ struct ContentView: View {
                 EmptyListView()
             }
         } // Overlay
+        // MARK: - Safe Area
+        .safeAreaInset(edge: .bottom, alignment: .center) {
+            Button {
+                withAnimation {
+                    isSheetPresented.toggle()
+                }
+
+            } label: {
+                ButtonImageView(symbolName: "plus.circle.fill")
+            }
+        } // Safe Area
+        // MARK: - Sheet
+        .sheet(isPresented: $isSheetPresented) {
+            NewMovieFormView()
+        }
     }
 }
 
