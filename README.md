@@ -37,4 +37,3 @@ This app lets you **save movies to a watchlist, organize them by genre, and pick
 ## 📬 Contact  
 For any questions or collaborations, feel free to reach out:  
 - **Email**: [aranfononi@gmail.com](mailto:aranfononi@gmail.com)  
-- **LinkedIn**: [Aran Fononi](https://www.linkedin.com/in/aran-fononi-18182b265)  
